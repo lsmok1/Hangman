@@ -1,9 +1,10 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    public static void intro(){
+    public static void intro() {
         System.out.println(
                 """
                              H A N G M A N
@@ -28,44 +29,62 @@ public class Main {
         System.out.println(allLetters());
 
     }
+
     public static char getLetter() {
         return new Scanner(System.in).nextLine().charAt(0);
     }
-    public static ArrayList<Character> missedLetters(char letter){
-        int guesses = 0;
-        ArrayList<Character> missedLetter = new ArrayList<>();
-        ArrayList<Character> correctLetters = new ArrayList<>();
-        ArrayList<Character> correctGuesses = new ArrayList<>();
-        char[] correct = "cat".toCharArray();
-//        missedLetter.add(getLetter());
-////        guesses.add(getLetter());
-        for (char c : correct) {
-            correctLetters.add(c);
 
-            while (correctLetters.size() != correctGuesses.size() && correctLetters.contains(c) != correctGuesses.contains(c)) {
-
-                if (correctLetters.contains(letter)) {
-                    correctGuesses.add(letter);
-                    System.out.println("correct: " + correctGuesses);
-                    guesses += 1;
-                    letter = getLetter();
-                    if (correctGuesses.contains(letter) && guesses > 1 && !correctGuesses.contains(correctLetters)) {
-                        System.out.println("Already guessed that letter! Guess again!");
-                        letter = getLetter();
-                    }
-                } else {
-                    guesses += 1;
-                    missedLetter.add(letter);
-                    System.out.println("incorrect: " + missedLetter);
-                    if (missedLetter.contains(letter)) {
-                        letter = getLetter();
-                    }
-                }
+    public static ArrayList<Character> theWord() {
+        ArrayList<Character> guessThisWord = new ArrayList<>();
+        ArrayList<Character> chArrDash = new ArrayList<>();
+        String strWord = "";
+        String strDisplay = "";
+        Random rand = new Random();
+        int randomNum = rand.nextInt(3);
+        randomNum += 1;
+        if (randomNum == 1) {
+            strWord = "dog";
+            char[] chArrWord = strWord.toCharArray();
+            strDisplay = "___";
+            char[] chArrDisplay = strDisplay.toCharArray();
+            for (char c : chArrWord) {
+                guessThisWord.add(c);
+            }
+            for (char c :  chArrDisplay) {
+                chArrDash.add(c);
             }
         }
-
-        return missedLetter;
+        if (randomNum == 2) {
+            strWord = "cat";
+            char[] chArrWord = strWord.toCharArray();
+            strDisplay = "___";
+            char[] chArrDisplay = strDisplay.toCharArray();
+            for (char c : chArrWord) {
+                guessThisWord.add(c);
+            }
+            for (char c :  chArrDisplay) {
+                chArrDash.add(c);
+            }
+        }
+        if (randomNum == 3) {
+            strWord = "orange";
+            char[] chArrWord = strWord.toCharArray();
+            strDisplay = "______";
+            char[] chArrDisplay = strDisplay.toCharArray();
+            for (char c : chArrWord) {
+                guessThisWord.add(c);
+            }
+            for (char c :  chArrDisplay) {
+                chArrDash.add(c);
+            }
+        }
+        System.out.println("Word to Guess: " + chArrDash.toString()
+                .replace(",", "")
+                .replace("[","")
+                .replace("]",""));
+    return guessThisWord;
     }
+
     public static ArrayList<Character> allLetters() {
         ArrayList<Character> allLetters = new ArrayList<>();
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -77,6 +96,7 @@ public class Main {
 
     public static void main(String[] args) {
         intro();
-        missedLetters(getLetter());
+        theWord();
+//        missedLetters(getLetter());
     }
 }
